@@ -152,6 +152,26 @@ public:
 			}
 		}
 	}
+	void selection_sort() {
+	    Node* first = head;
+	    while (first) {
+	        Node* minNode = first;
+	        Node* last = first->next;
+
+	        while (last) {
+	            if (last->data < minNode->data) {
+	                minNode = last;
+	            }
+	            last = last->next;
+	        }
+
+	        int t = minNode->data;
+	        minNode->data = first->data;
+	        first->data = t;
+
+	        first = first->next;
+	    }
+	}
 	~LinkedList()
 	{
 		clear();
