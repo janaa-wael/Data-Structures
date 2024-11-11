@@ -164,7 +164,6 @@ public:
 	            }
 	            last = last->next;
 	        }
-
 	        int t = minNode->data;
 	        minNode->data = first->data;
 	        first->data = t;
