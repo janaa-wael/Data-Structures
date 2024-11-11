@@ -2,7 +2,7 @@
  * main.cpp
  *
  *  Created on: Nov 11, 2024
- *      Author: hp
+ *      Author: Jana Wael
  *
  *  Description:
  *      This program implements a doubly linked list with various functionalities, including 

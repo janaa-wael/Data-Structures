@@ -2,7 +2,7 @@
  * main.cpp
  *
  *  Created on: Nov 11, 2024
- *      Author: hp
+ *      Author: Jana Wael
  */
 
 #include <bits/stdc++.h>
