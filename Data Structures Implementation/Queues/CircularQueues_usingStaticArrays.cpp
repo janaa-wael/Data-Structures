@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Circular_Queue{
+class Circular_Queue {
 private:
 	int front;
 	int back;
@@ -25,9 +25,9 @@ public:
 
 	bool isFull(void)
 	{
-		if(front == 0 && back == capacity)
+		if (front == 0 && back == capacity)
 			return 1;
-		else if(front > 0 && back == front-1)
+		else if (front > 0 && back == front - 1)
 			return 1;
 		else
 			return 0;
@@ -50,19 +50,19 @@ public:
 
 	void enqueue(int element)
 	{
-		if(isFull())
+		if (isFull())
 		{
 			cout << "Queue is full" << endl;
 			return;
 		}
-		else if(isEmpty())
+		else if (isEmpty())
 		{
 			front = back = 0;
 			arr[front] = element;
 		}
 		else
 		{
-			if(back == capacity-1)
+			if (back == capacity - 1)
 			{
 				back = 0;
 			}
@@ -77,7 +77,7 @@ public:
 	int dequeue(void)
 	{
 		int element;
-		if(isEmpty())
+		if (isEmpty())
 		{
 			//throw runtime_error("Queue is empty");
 			cout << "Queue is empty" << endl;
@@ -85,7 +85,7 @@ public:
 		}
 		else
 		{
-			if(back == front)
+			if (back == front)
 			{
 				cout << "Queue becomes empty" << endl;
 				element = arr[front];
@@ -101,19 +101,19 @@ public:
 
 	int getSize(void)
 	{
-		if(isEmpty())
+		if (isEmpty())
 			return 0;
-		else if(isFull())
+		else if (isFull())
 			return capacity;
-		else if(front < back)
+		else if (front < back)
 		{
-			return back - front +1;
+			return back - front + 1;
 		}
-		else if(front > back)
+		else if (front > back)
 		{
 			return capacity - front + back + 1;
 		}
-		else if(front == back && front == 0)
+		else if (front == back && front == 0)
 		{
 			return 1;
 		}
@@ -122,25 +122,25 @@ public:
 	void print_queue(void)
 	{
 		int index = 0;
-		if(front < back)
+		if (front < back)
 		{
-			for(int i = front; i <= back; i++)
-				cout << "Element "<< ++index << ": " << arr[i] << endl;
+			for (int i = front; i <= back; i++)
+				cout << "Element " << ++index << ": " << arr[i] << endl;
 			return;
 		}
-		else if(front > back)
+		else if (front > back)
 		{
-			int end = capacity-1;
-			for(int i = front; i<=end; i++)
+			int end = capacity - 1;
+			for (int i = front; i <= end; i++)
 			{
-				cout << "Element "<< ++index<< ": " << arr[i] << endl;
+				cout << "Element " << ++index << ": " << arr[i] << endl;
 			}
-			for(int i = 0; i <= back ; i++)
+			for (int i = 0; i <= back; i++)
 			{
-				cout << "Element "<< index + i + 1 << ": " << arr[i] << endl;
+				cout << "Element " << index + i + 1 << ": " << arr[i] << endl;
 			}
 		}
-		else if(front == back && front == 0)
+		else if (front == back && front == 0)
 		{
 			cout << "Element 1: " << arr[front];
 		}
@@ -151,8 +151,13 @@ public:
 		cout << "* Front    : " << front << endl;
 		cout << "* Back     : " << back << endl;
 		cout << "* Capacity : " << capacity << endl;
-		cout << "* Size     : " << getSize()  << endl;
+		cout << "* Size     : " << getSize() << endl;
 		cout << "******************************" << endl;
+	}
+	void clear(void)
+	{
+		front = -1;
+		back = -1;
 	}
 };
 
