@@ -9,18 +9,19 @@
 
 using namespace std;
 
+#define ARR_SIZE	1000
+
 class Circular_Queue {
 private:
 	int front;
 	int back;
 	int capacity;
-	int* arr;
+	int arr[ARR_SIZE];
 public:
 	Circular_Queue()
 	{
 		capacity = 10;
 		front = back = -1;
-		arr = new int[capacity];
 	}
 
 	bool isFull(void)
