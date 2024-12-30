@@ -9,7 +9,7 @@
 using namespace std;
 
 
-class Node{
+class Node {
 public:
 	Node* next;
 	int data;
@@ -20,12 +20,12 @@ public:
 	}
 };
 
-class Queue{
+class Queue {
 private:
 	Node* front;
 	Node* back;
 public:
-	Queue(){
+	Queue() {
 		front = NULL;
 		back = NULL;
 	}
@@ -38,7 +38,7 @@ public:
 	void enqueue(int element)
 	{
 		Node* new_node = new Node(element);
-		if(back == NULL)
+		if (back == NULL)
 		{
 			back = new_node;
 			front = back;
@@ -52,11 +52,11 @@ public:
 
 	int dequeue(void)
 	{
-		if(front == NULL)
+		if (front == NULL)
 		{
 			throw runtime_error("Empty queue");
 		}
-		Node *temp = front;
+		Node* temp = front;
 		int data = front->data;
 		front = front->next;
 		delete temp;
@@ -65,7 +65,7 @@ public:
 
 	void traverse(void)
 	{
-		if(front == NULL)
+		if (front == NULL)
 		{
 			cout << "Empty queue" << endl;
 			return;
@@ -73,7 +73,7 @@ public:
 		Node* current_node = front;
 		int index = 0;
 		cout << "***************************************" << endl;
-		while(current_node != NULL)
+		while (current_node != NULL)
 		{
 			cout << "Element " << ++index << ": " << current_node->data << endl;
 			current_node = current_node->next;
@@ -83,11 +83,11 @@ public:
 
 	void clear(void)
 	{
-		if(front == NULL)
+		if (front == NULL)
 			return;
 		Node* current_node = front->next;
 		Node* prev_node = front;
-		while(current_node != NULL)
+		while (current_node != NULL)
 		{
 			delete prev_node;
 			prev_node = current_node;
@@ -99,7 +99,7 @@ public:
 
 	int getFront(void)
 	{
-		if(front == NULL)
+		if (front == NULL)
 			throw runtime_error("Empty Queue");
 		return front->data;
 	}
@@ -107,7 +107,7 @@ public:
 
 	int getBack(void)
 	{
-		if(back == NULL)
+		if (back == NULL)
 			throw runtime_error("Empty Queue");
 		return back->data;
 	}
@@ -116,7 +116,7 @@ public:
 	{
 		Node* current_node = front;
 		int size = 0;
-		while(current_node != NULL)
+		while (current_node != NULL)
 		{
 			size++;
 			current_node = current_node->next;
