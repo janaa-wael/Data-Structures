@@ -8,7 +8,7 @@
 using namespace std;
 
 
-class BinaryTreeNode{
+class BinaryTreeNode {
 public:
 	int data;
 	BinaryTreeNode* right;
@@ -16,7 +16,7 @@ public:
 };
 
 
-class Queue{
+class Queue {
 private:
 	int size;
 	BinaryTreeNode** arr;
@@ -28,7 +28,7 @@ public:
 		size = 1000;
 		front = -1;
 		back = -1;
-		arr = new BinaryTreeNode*[size];
+		arr = new BinaryTreeNode * [size];
 	}
 
 	~Queue()
@@ -37,7 +37,7 @@ public:
 	}
 	BinaryTreeNode* getFront(void)
 	{
-		if(!isEmpty())
+		if (!isEmpty())
 			return arr[front];
 		cout << "Empty queue" << endl;
 		return NULL;
@@ -45,7 +45,7 @@ public:
 
 	BinaryTreeNode* getBack(void)
 	{
-		if(!this->isEmpty())
+		if (!this->isEmpty())
 			return arr[back];
 		cout << "Empty queue" << endl;
 		return NULL;
@@ -59,12 +59,12 @@ public:
 
 	bool isFull(void)
 	{
-		return back == size -1 ;
+		return back == size - 1;
 	}
 
 	void enqueue(BinaryTreeNode* node)
 	{
-		if(isEmpty())
+		if (isEmpty())
 		{
 			front = 0;
 			back = 0;
@@ -73,7 +73,7 @@ public:
 		else if (isFull())
 		{
 			size *= 2;
-			BinaryTreeNode** temp = new BinaryTreeNode*[size];
+			BinaryTreeNode** temp = new BinaryTreeNode * [size];
 			for (int i = front; i <= back; i++) {
 				temp[i - front] = arr[i]; // Shift indices to start from 0
 			}
@@ -93,12 +93,12 @@ public:
 	BinaryTreeNode* dequeue(void)
 	{
 		BinaryTreeNode* element;
-		if(isEmpty())
+		if (isEmpty())
 		{
 			cout << "Empty queue!" << endl;
 			return NULL;
 		}
-		else if(front == back)
+		else if (front == back)
 		{
 			element = arr[front];
 			back = -1;
@@ -115,12 +115,12 @@ public:
 	void print_queue()
 	{
 		Queue q;
-		while(!isEmpty())
+		while (!isEmpty())
 		{
 			cout << getFront() << endl;
 			q.enqueue(dequeue());
 		}
-		while(!q.isEmpty())
+		while (!q.isEmpty())
 		{
 			this->enqueue(q.dequeue());
 		}
@@ -130,7 +130,7 @@ public:
 
 
 
-class BinaryTree{
+class BinaryTree {
 private:
 	BinaryTreeNode* root;
 public:
@@ -147,11 +147,11 @@ public:
 	}
 	void addNode(int element, BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return;
-		if(element > parent->data)
+		if (element > parent->data)
 		{
-			if(parent->right == NULL)
+			if (parent->right == NULL)
 			{
 				parent->right = new BinaryTreeNode();
 				parent->right->data = element;
@@ -159,11 +159,11 @@ public:
 				parent->right->right = NULL;
 			}
 			else
-				addNode(element,parent->right);
+				addNode(element, parent->right);
 		}
 		else
 		{
-			if(parent->left == NULL)
+			if (parent->left == NULL)
 			{
 				parent->left = new BinaryTreeNode();
 				parent->left->data = element;
@@ -171,58 +171,114 @@ public:
 				parent->left->right = NULL;
 			}
 			else
-				addNode(element,parent->left);
+				addNode(element, parent->left);
 		}
+	}
+
+	bool isLeafNode(BinaryTreeNode* node)
+	{
+		return (node->left == NULL) && (node->right == NULL);
+	}
+
+	bool Has1LeftChild(BinaryTreeNode* node)
+	{
+		return (node->left != NULL && node->right == NULL);
+	}
+
+	bool Has1RightChild(BinaryTreeNode* node)
+	{
+		return (node->left == NULL && node->right != NULL);
+	}
+
+	bool Has2Children(BinaryTreeNode* node)
+	{
+		return (node->left != NULL && node->right != NULL);
 	}
 
 	int getMin(void)
 	{
 		BinaryTreeNode* parent = root;
-		while(parent->left != NULL)
+		while (parent->left != NULL)
 		{
 			parent = parent->left;
 		}
 		return parent->data;
 	}
 
-	int getMax(void)
+	BinaryTreeNode* getMinNode(BinaryTreeNode* node)
+	{
+		while (node->left != NULL)
+		{
+			node = node->left;
+		}
+		return node;
+	}
+
+	int getMaxValue(void)
 	{
 		BinaryTreeNode* parent = root;
-		while(parent->right != NULL)
+		while (parent->right != NULL)
 		{
 			parent = parent->right;
 		}
 		return parent->data;
 	}
 
+	BinaryTreeNode* getMaxNode(BinaryTreeNode* node)
+	{
+		while (node->right != NULL)
+		{
+			node = node->right;
+		}
+		return node;
+	}
+
+
 	int getHeight(BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return -1;
 		else
-			return max(getHeight(parent->left) + 1 , getHeight(parent->right) + 1);
+			return max(getHeight(parent->left) + 1, getHeight(parent->right) + 1);
 	}
 
-	bool search_recursive(BinaryTreeNode* node, int value)
+	bool isNodeFound_rec(BinaryTreeNode* node, int value)
 	{
-		if(node == NULL)
+		if (node == NULL)
 			return false;
-		else if(node->data == value)
+		else if (node->data == value)
 			return true;
-		else if(node->data >= value)
-			search_recursive(root->left,value);
-		else if(node->data < value)
-			search_recursive(node->right,value);
+		else if (node->data >= value)
+			search_recursive(root->left, value);
+		else if (node->data < value)
+			search_recursive(node->right, value);
 	}
 
-	bool search(int value)
+	bool isNodeFound(int value)
 	{
-		return search_recursive(root,value);
+		return isNodeFound_rec(root, value);
+	}
+
+	BinaryTreeNode* search_recursive(BinaryTreeNode* node, int value)
+	{
+		if (node == NULL)
+			return NULL;
+		else if (node->data == value)
+			return node;
+		else if (node->data >= value)
+			search_recursive(root->left, value);
+		else if (node->data < value)
+			search_recursive(node->right, value);
+	}
+
+	BinaryTreeNode* search(int value)
+	{
+		return search_recursive(root, value);
 	}
 
 	void InOrderTraversal(BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return;
 		InOrderTraversal(parent->left);  //Visit left subtree
 		cout << parent->data << endl;    //Visit current node
@@ -231,7 +287,7 @@ public:
 
 	void PreorderTraversal(BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return;
 		cout << parent->data << endl;    //Visit current node
 		PreorderTraversal(parent->left);  //Visit left subtree
@@ -241,7 +297,7 @@ public:
 
 	void PostorderTraversal(BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return;
 		PostorderTraversal(parent->left);  //Visit left subtree
 		PostorderTraversal(parent->right); //Visit right subtree
@@ -250,26 +306,26 @@ public:
 
 	void BreadthFirstTraversal(BinaryTreeNode* parent)
 	{
-		if(parent == NULL)
+		if (parent == NULL)
 			return;
 		Queue q;
 		q.Queue::enqueue(parent);
-		while(!q.Queue::isEmpty())
+		while (!q.Queue::isEmpty())
 		{
 			BinaryTreeNode* node = q.Queue::dequeue();
 			cout << node->data << endl;
-			if(node->left != NULL)
+			if (node->left != NULL)
 				q.enqueue(node->left);
-			if(node->right != NULL)
+			if (node->right != NULL)
 				q.Queue::enqueue(node->right);
 		}
 	}
 
 	int Count_Leaf_Node(BinaryTreeNode* node)
 	{
-		if(node == NULL)
+		if (node == NULL)
 			return 0;
-		else if(node->right == NULL && node->left == NULL)
+		else if (node->right == NULL && node->left == NULL)
 			return 1;
 		else
 		{
@@ -279,7 +335,7 @@ public:
 
 	int Count_Nodes(BinaryTreeNode* node)
 	{
-		if(node == NULL)
+		if (node == NULL)
 		{
 			return 0;
 		}
@@ -292,11 +348,51 @@ public:
 		cout << "**********************************" << endl;
 		cout << "* Number of nodes: " << Count_Nodes(root) << endl;
 		cout << "* Number of leaf nodes: " << Count_Nodes(root) << endl;
-		cout << "* Max Node: " << getMax() << endl;
+		cout << "* Max Node: " << getMaxValue() << endl;
 		cout << "* Min Node: " << getMin() << endl;
 		cout << "* Height: " << getHeight(root) << endl;
 		cout << "**********************************" << endl;
 	}
+
+	BinaryTreeNode* deleteNode(BinaryTreeNode* node, int value)
+	{
+		if (node == NULL)
+			return node;
+		if (value > node->data)
+		{
+			node->right = deleteNode(node->right, value);
+		}
+		else if (value < node->data)
+		{
+			node->left = deleteNode(node->left, value);
+		}
+		else
+		{
+			if (isLeafNode(node))
+			{
+				delete node;
+				return NULL;
+			}
+			else if (Has1RightChild(node))
+			{
+				BinaryTreeNode* temp = node->right;
+				delete(node);
+				return temp;
+			}
+			else if (Has1LeftChild(node))
+			{
+				BinaryTreeNode* temp = node->left;
+				delete(node);
+				return temp;
+			}
+			BinaryTreeNode* temp = getMinNode(node->right);
+			node->data = temp->data;
+			node->right = deleteNode(node->right, temp->data);
+		}
+		return node;
+	}
+
+
 
 };
 
@@ -326,7 +422,10 @@ int main() {
 	tree.BreadthFirstTraversal(root);
 	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 	tree.debug();
-	cout << "Result of searching of 10: " << (tree.search(10)? "true" : "false") << endl;
-	cout << "Result of searching of 20: " << (tree.search(20)? "true" : "false") << endl;
+	cout << "Result of searching of 10: " << (tree.search(10) ? "true" : "false") << endl;
+	cout << "Result of searching of 20: " << (tree.search(20) ? "true" : "false") << endl;
+	cout << "After deleting element 8: " << endl;
+	tree.deleteNode(root, 8);
+	tree.PostorderTraversal(root);
 	return 0;
 }
